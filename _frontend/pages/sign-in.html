@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login - Tic Tac Toe</title>
+    <link rel="shortcut icon" href="img/LogoTicTacToe.svg" type="image/x-icon">
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<script src="../js/password.js"></script>
+<body>
+    <div>
+        <div id="form-container">
+            <form id="form-login" method="POST">
+                <div class="header-form">
+                    <label style="margin-top: 10px; margin-bottom: 10px">INGRESAR</label>
+                </div>
+                <div class="campos-form">
+                    <div class="campo">
+                        <img src="../Img/x.svg" alt="Icono X">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username">
+                    </div>
+                    <div class="campo">
+                        <img src="../Img/o.svg" alt="Icono O">
+                        <label for="password">Contraseña</label>
+                        <div class="password-container">
+                            <div class="input-container">
+                                <input type="password" id="password" name="password">
+                            </div>
+                            <div class="icon-container">
+                                <img src="../img/mostrarPass.svg" alt="Mostrar Contraseña" class="show-password" onclick="togglePasswordVisibility()">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="campo">
+                        <label></label>
+                        <button class="red-button-registro">Entrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="registro-container">
+            <label>¿Aún no estás registrado?</label>
+            <a href="sign-up.html">
+                <button class="blue-button">Registrarse</button>
+            </a>
+        </div>
+        <!-- Modifica tu actual sección de botones -->
+        <div class="row" id="button-back-container">
+            <a href="home.html">
+            <button class="back-button">
+                <img src="../img/atras.svg" alt="Regresar" width="100%">
+            </button>
+            </a>
+        </div>
+        <div class="row" id="button-logo-form">
+            <a href="home.html">
+                <button class="logo-button" >
+                    <img src="../img/LogoTicTacToe.svg" alt="logo_TicTacToe" width="80%">
+                </button>
+                </a>
+        </div>
+        <div class="row" id="container-info" style="margin-top: 18%">
+            <a href="info.html">
+                <button class="green-button">
+                    <img src="../img/info.svg" alt="Info" width="35" height="35">
+                </button>
+            </a>
+        </div>
+    </div>
+  
+    </div>
+    <footer>
+        <div class="row">
+            <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1</p>
+        </div>
+    </footer>
+</body>
+
+</html>

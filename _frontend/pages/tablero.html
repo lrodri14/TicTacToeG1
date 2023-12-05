@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Partida - Tic Tac Toe</title>
+    <link rel="shortcut icon" href="img/LogoTicTacToe.svg" type="image/x-icon">
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script defer src="../js/partida.js"></script>
+
+    <style>
+        /* Estilos para la barra de navegación */
+        nav {
+            background-color: white;
+            height: 4em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px; /* Espaciado en los extremos */
+        }
+
+        .center-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 90%; /* Centrar verticalmente */
+            width: 100%; /* Ajuste al 100% del ancho del contenedor */
+        }
+
+        #jugador1, #separator, #jugador2 {
+            margin: 0 10px; /* Ajuste de margen */
+            color: #FF9500;
+        }
+
+        #separator {
+            border-right: 2px solid #C0C0C0;
+            height: 70%;
+            margin-left: 3%;
+            margin-right:3%;
+        }
+
+        .center-content img {
+            width: 2%; /* Ajuste del tamaño del ícono */
+            height: auto; /* Mantener la proporción */
+            margin-left: 3%;
+            margin-right:3%;
+        }
+
+        #ticTacToeContainer {
+            margin: 1.5% auto 0; /* Modificado el margen superior */
+        }
+
+        #ticTacToe {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 10px;
+            background-color: rgb(216, 213, 213);
+            border-radius: 15px;
+            padding: 5px; /* Agregado el padding para lograr el espacio adicional */
+            margin: auto; /* Centrar horizontalmente */
+        }
+
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px; /* Ajustado el tamaño de la fuente */
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cell:hover {
+            background-color: #f0f0f0;
+        }
+
+        .cell img {
+            width: 50%; /* Ajustado el tamaño de la imagen */
+            height: 50%; /* Ajustado el tamaño de la imagen */
+        }
+
+        /* Estilos para el texto del pie de página */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #button-back-container {
+            position: absolute;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="row" id="button-back-container">
+        <a href="menu.html">
+            <button class="back-button">
+                <img src="../img/atras.svg" alt="Regresar" width="100%">
+            </button>
+        </a>
+    </div>
+    <nav>
+        <div class="center-content">
+            <img src="../img/x.svg" alt="Icono jugador 1">
+            <label id="jugador1">eamaya</label>
+            <div id="separator"></div>
+            <label id="jugador2">jmeraz</label>
+            <img id="icono2" src="../img/o.svg" alt="Icono jugador 2">
+        </div>
+    </nav>
+
+    <div id="ticTacToeContainer">
+        <div id="ticTacToe">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+    </div>
+    <footer>
+        <div class="row">
+            <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1</p>
+        </div>
+    </footer>
+</body>
+
+</html>

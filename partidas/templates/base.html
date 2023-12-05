@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tic Tac Toe</title>
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href='{% static "css/styles.css" %}'>
+</head>
+<script src='{% static "js/password.js" %}'></script>
+
+<body>
+    <div>
+        <!-- Modifica tu actual sección de botones -->
+        <div class="row" id="button-salir-container">
+            {% block botones %}
+            {% endblock botones %}
+        </div>
+
+        {% block content %}
+        {% endblock content %}
+
+    </div>
+
+    <footer>
+        <div class="row">
+            <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos 1 - Grupo N°1
+            </p>
+        </div>
+    </footer>
+</body>
+
+{% block scripts %}
+{% endblock scripts %}
+
+</html>

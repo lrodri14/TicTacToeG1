@@ -1,0 +1,134 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block botones %}
+    <a href="home.html">
+        <button class="salir-button">
+            <img src='{% static "img/salir.svg" %}' alt="Salir" width="35" height="35">
+        </button>
+    </a>
+{% endblock %}
+
+{% block content %}
+
+<div id="form-container">
+    <div class="blue-container">
+        <!-- Primer botón -->
+        <div class="button-wrapper">
+            <div class="content-wrapper">
+                <img src='{%static "img/organizar.svg" %}' alt="Organizar">
+                <div class="text-button-wrapper">
+                    <label for="organizar-privada">Organizar Privada</label>
+                    <hr>
+                    <center>
+                        <a href="{% url 'nueva-privada' %}">
+                            <button class="orange-button" id="organizar-privada"><span>Crear Partida</span></button>
+                        </a>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <!-- Segundo botón -->
+        <div class="button-wrapper">
+            <div class="content-wrapper">
+
+                <img src='{% static "img/publica.svg" %}' alt="publica">
+                <div class="text-button-wrapper">
+                    <label for="crear-partida">Pública</label>
+                    <hr>
+                    <center>
+                        <button class="orange-button" id="buscar-partida"><span>Buscar Partida</span></button>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <!-- Tercer botón -->
+        <div class="button-wrapper">
+            <div class="content-wrapper">
+                <img src='{% static "img/codigo.svg" %}' alt="Descripción de la imagen 1">
+                <div class="text-button-wrapper">
+                    <label for="buscar-partida">Privada</label>
+                    <hr>
+                    <center>
+                        <button class="orange-button" id="codigo"
+                            onclick="openCodigoModal()"><span>Código</span></button>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row" id="button-logo-form">
+    <a href="menu.html">
+        <button class="logo-button">
+            <img src="{% static 'img/LogoTicTacToe.svg' %}" alt="logo_TicTacToe" width="80%">
+        </button>
+    </a>
+</div>
+<div class="row" id="button-logo-form">
+    <div class="blue-container-logo">
+        <div>
+            <center>
+                <label>eamaya</label>
+                <hr class="hr1">
+                <img src="{% static 'img/copa.svg' %}" alt="Copa" width="10%">
+                <label>1200</label>
+                <img src="{% static 'img/corona.svg' %}" alt="Corona" width="10%" style="margin-left: 50px;">
+                <label>5</label>
+            </center>
+        </div>
+    </div>
+</div>
+<div class="row" id="container-info" style="margin-top: 18%">
+    <a href="info.html">
+        <button class="green-button">
+            <img src="{% static 'img/info.svg' %}" alt="Info" width="35" height="35">
+        </button>
+    </a>
+    <a href="estadisticas.html">
+        <button class="green-button">
+            <img src="{% static 'img/estadisticas.svg' %}" alt="Info" width="35" height="35">
+        </button>
+    </a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    // Get the modal element
+    var codigoModal = document.getElementById("codigoModal");
+
+    // Get the button that opens the modal
+    var codigoButton = document.getElementById("codigo");
+
+    // Get the <span> element that closes the modal
+    var closeSpan = document.getElementsByClassName("close")[0];
+
+    // Function to open the modal
+    function openCodigoModal() {
+        codigoModal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeCodigoModal() {
+        codigoModal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks on the close button (x)
+    closeSpan.onclick = function () {
+        closeCodigoModal();
+    }
+
+    // Close the modal when the user clicks outside of it
+    window.onclick = function (event) {
+        if (event.target == codigoModal) {
+            closeCodigoModal();
+        }
+    }
+
+</script>
+
+{% endblock %}

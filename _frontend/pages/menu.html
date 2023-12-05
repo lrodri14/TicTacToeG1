@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tic Tac Toe</title>
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<script src="../js/password.js"></script>
+
+<body>
+    <div>
+        <div id="form-container">
+            <div class="blue-container">
+                <!-- Primer botón -->
+                <div class="button-wrapper">
+                    <div class="content-wrapper">
+                        <img src="../img/organizar.svg" alt="Organizar">
+                        <div class="text-button-wrapper">
+                            <label for="organizar-privada">Organizar Privada</label>
+                            <hr>
+                            <center>
+                                <a href="rooms.html">
+                                    <button class="orange-button" id="organizar-privada"><span>Crear Partida</span></button>
+                                </a>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <!-- Segundo botón -->
+                <div class="button-wrapper">
+                    <div class="content-wrapper">
+
+                        <img src="../img/publica.svg" alt="publica">
+                        <div class="text-button-wrapper">
+                            <label for="crear-partida">Pública</label>
+                            <hr>
+                            <center>
+                                <button class="orange-button" id="buscar-partida"><span>Buscar Partida</span></button>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tercer botón -->
+                <div class="button-wrapper">
+                    <div class="content-wrapper">
+                        <img src="../img/codigo.svg" alt="Descripción de la imagen 1">
+                        <div class="text-button-wrapper">
+                            <label for="buscar-partida">Privada</label>
+                            <hr>
+                            <center>
+                                <button class="orange-button" id="codigo"
+                                    onclick="openCodigoModal()"><span>Código</span></button>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modifica tu actual sección de botones -->
+        <div class="row" id="button-salir-container">
+            <a href="home.html">
+                <button class="salir-button">
+                    <img src="../img/salir.svg" alt="Salir" width="35" height="35">
+                </button>
+            </a>
+        </div>
+        <div class="row" id="button-logo-form">
+            <a href="menu.html">
+                <button class="logo-button">
+                    <img src="../img/LogoTicTacToe.svg" alt="logo_TicTacToe" width="80%">
+                </button>
+            </a>
+        </div>
+        <div class="row" id="button-logo-form">
+            <div class="blue-container-logo">
+                <div>
+                    <center>
+                        <label>eamaya</label>
+                        <hr class="hr1">
+                        <img src="../img/copa.svg" alt="Copa" width="10%">
+                        <label>1200</label>
+                        <img src="../img/corona.svg" alt="Corona" width="10%" style="margin-left: 50px;">
+                        <label>5</label>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="container-info" style="margin-top: 18%">
+            <a href="info.html">
+                <button class="green-button">
+                    <img src="../img/info.svg" alt="Info" width="35" height="35">
+                </button>
+            </a>
+            <a href="estadisticas.html">
+                <button class="green-button">
+                    <img src="../img/estadisticas.svg" alt="Info" width="35" height="35">
+                </button>
+            </a>
+        </div>
+    </div>
+
+    </div>
+    <footer>
+        <div class="row">
+            <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1
+            </p>
+        </div>
+    </footer>
+</body>
+<div id="codigoModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <label for="codigoInput" style="font-size: 25px;">Código</label>
+        <label for="codigoInput" style="font-size: 14px;">Ingrese el codigo de sala: </label>
+        <input type="text" id="codigoInput" name="codigoInput">
+        <div class="boton-con">
+            <button id="ingresarBtn">Ingresar</button>
+            <button id="cancelarBtn">Cancelar</button>
+        </div>
+    </div>
+</div>
+<script>
+
+    // Get the modal element
+    var codigoModal = document.getElementById("codigoModal");
+
+    // Get the button that opens the modal
+    var codigoButton = document.getElementById("codigo");
+
+    // Get the <span> element that closes the modal
+    var closeSpan = document.getElementsByClassName("close")[0];
+
+    // Function to open the modal
+    function openCodigoModal() {
+        codigoModal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeCodigoModal() {
+        codigoModal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks on the close button (x)
+    closeSpan.onclick = function () {
+        closeCodigoModal();
+    }
+
+    // Close the modal when the user clicks outside of it
+    window.onclick = function (event) {
+        if (event.target == codigoModal) {
+            closeCodigoModal();
+        }
+    }
+
+</script>
+
+</html>

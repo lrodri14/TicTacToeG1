@@ -1,0 +1,160 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block botones %}
+<a href="{% url '' %}">
+    <button class="back-button">
+        <img src="{% static 'img/atras.svg' %}" alt="Salir" width="35" height="35">
+    </button>
+</a>
+{% endblock %}
+
+{% block content %}
+<div>
+    <div id="form-container-Grey">
+        <div class="grey-container">
+            <div>
+                <label for="organizar-privada" style="color: #122A36; margin-left: 20px;">Jugadores</label>
+                <label for="organizar-privada"
+                    style="color: #122A36; margin-left: 270px;">{{data.jugadores|length}}</label>
+                <label for="organizar-privada" style="color: #122A36; ">/</label>
+                <label for="organizar-privada" style="color: #122A36; ">2</label>
+            </div>
+            <hr class="hr2">
+            <div class="button-wrapper-p">
+                <div class="content-wrapper-p">
+
+                    <img src="{% static 'img/x.svg' %}" alt="Descripción de la imagen 1" width="20px"
+                        style="margin-top: 5px; margin-right: 5px;">
+                    <div class="person">
+                        <label for=""> {{data.jugadores.0}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="button-wrapper-p">
+                <div class="content-wrapper-p">
+                    <img src="{% static 'img/o.svg' %}" alt="Descripción de la imagen 1" width="20px"
+                        style="margin-top: 5px; margin-right: 5px;">
+                    <div class="person">
+                        <label id="nombreJugador2" for=""> {% if data.jugadores|length > 1 %} {{ data.jugadores.1 }} {% else %} Esperando
+                            jugador... {% endif %}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="button-logo-form-room">
+        <button class="logo-button">
+            <img src="{% static 'img/LogoTicTacToe.svg' %}" alt="logo_TicTacToe" width="100%">
+        </button>
+    </div>
+    {% if data.esPrivada %}
+    <div class="row" id="button-code-form">
+        <div class="grey-container-logo">
+            <label>Código de sala:</label>
+            <label id="codigoPartida" style="font-weight: bold; font-size: 30px;">{{data.codigoPartida}}</label>
+            {% if data.jugadores|length > 1 %}
+            <input id="segundoJugador" value="{{data.jugadores.1}}" type="hidden">
+            {% endif %}
+        </div>
+    </div>
+    {% if not data.yaEmpezada %}
+    <div class="row" id="button-code-form">
+        <button class="enlace-button"> <img src="{% static 'img/enlace.svg' %}" alt="enlace" width="20px"
+                style="margin-right: 3px;">Compartir Invitación</button>
+    </div>
+    {% endif %}
+    {% endif %}
+    <div class="row" id="button-code-form">
+        <button id="mensajes" class="play-button">Esperando rival</button>
+    </div>
+</div>
+<!-- <div class="row" id="container-info">
+    <div class="grey-container-chat">
+        <div class="chat-cont">
+            <div class="msg">
+                <p>Hola</p>
+            </div>
+            <div class="msg">
+                <p>Hola</p>
+            </div>
+            <div class="msg">
+                <p>Hola</p>
+            </div>
+        </div>
+        <hr class="divisor">
+        <div class="footer-chat">
+            <input type="text" placeholder="Escribe tu mensaje">
+            <button>
+                <img src="{% static 'img/enviar.svg' %}" alt="Corona" width="20px" style="border: none; ">
+            </button>
+        </div>
+    </div>
+</div> -->
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    var codigoPartida = document.getElementById('codigoPartida').innerHTML;
+    var jugador2 = document.getElementById('segundoJugador');
+    var jugador2Nombre = document.getElementById('nombreJugador2');
+
+    // Cliente 1 - Enviar mensaje al room
+    const socket = new WebSocket(
+        `ws://localhost:8001/juegos/${codigoPartida}/`
+    );
+
+    function empezarPartida() {
+        var tiempoRestante = 3;
+
+        var countdownLabel = document.getElementById('mensajes');
+
+        var intervalo = setInterval(function () {
+            countdownLabel.innerHTML = `Empezará en ${tiempoRestante} seg.`;
+            tiempoRestante--;
+
+            if (tiempoRestante < 0) {
+                clearInterval(intervalo);
+                location.reload(); // Recargar la página
+                // Puedes realizar alguna acción adicional una vez que el conteo haya finalizado
+                // countdownLabel.textContent = "¡Finalizado!";
+            }
+        }, 1000);
+    }
+
+    // Evento cuando el WebSocket se abre
+    socket.onopen = function (event) {
+        console.log('WebSocket abierto');
+
+        if (jugador2 !== null) {
+
+            // Enviar un mensaje al room
+            const message = {
+                custom: 'rival_conectado',
+                message: jugador2.value
+            };
+
+            console.log(message);
+
+            socket.send(JSON.stringify(message));
+
+            empezarPartida();
+        }
+    };
+
+    // Evento cuando se recibe un mensaje del WebSocket
+    socket.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+        console.log('Mensaje recibido:', data);
+
+        if (data.custom == 'rival_conectado') {
+            jugador2Nombre.innerHTML = data.message;
+            empezarPartida();
+        }
+    };
+
+</script>
+
+{% endblock %}

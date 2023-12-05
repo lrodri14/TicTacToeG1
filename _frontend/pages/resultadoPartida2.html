@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tic Tac Toe</title>
+    <link rel="shortcut icon" href="img/LogoTicTacToe.svg" type="image/x-icon">
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column; /* Cambiado para que los elementos estén uno encima del otro */
+        }
+
+        #logo {
+            width: 10vw;
+            margin-bottom: 10px; /* Ajustado margen inferior */
+        }
+
+        .container {
+            width: 50%;
+            background-color: #FF9500;
+            border-radius: 30px;
+            overflow: hidden;
+            text-align: center;
+            margin-bottom: 2vh;
+        }
+
+        .header {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .player-container {
+            margin-bottom: 15px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 5%;
+            display: flex;
+            flex-direction: column; /* Cambiado a dirección de columna */
+            align-items: center; /* Alinea los elementos al centro en el eje transversal */
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .player-container > div {
+            width: 100%; 
+            color: #FF9500;
+        }
+
+
+        .player-icon {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px; /* Espaciado a la izquierda del ícono */
+            margin-right: 10px; /* Espaciado a la derecha del ícono */
+        }
+
+        .points {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        button {
+            margin-top: 20px; /* Ajustado margen superior */
+        }
+
+
+        .empate {
+            color: #FF9500;
+            margin-top: 5px; /* Ajusta el margen superior según sea necesario */
+            margin-bottom: 7%;
+        }
+
+        /* Animación para el efecto de pulsar */
+        @keyframes pulsar {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Aplicar la animación a los elementos deseados */
+        .pulsar {
+            animation: pulsar 1s infinite; /* 1s de duración, infinitamente repetido */
+        }
+    </style>
+</head>
+
+<body>
+    <a href="rooms.html">
+        <button class="logo-button" >
+            <img src="../img/LogoTicTacToe.svg" alt="logo_TicTacToe" width="150vw">
+        </button>
+    </a>
+    <div class="container">
+        <div class="header">
+            RESULTADOS DE LA PARTIDA
+        </div>
+        <div class="content">
+            <div class="player-container">
+                <div class="pulsar" id="jugador1" class="row" style="margin-bottom: 5%;">
+                    <label>Jugador 1:</label>
+                    <img src="../img/estrella.svg" alt="Icono Jugador 1" class="player-icon">
+                    <label class="points" id="puntosJugador1">+ 200 puntos</label>
+                </div>
+                <div class="pulsar" id="jugador2" class="row">
+                    <label>Jugador 2:</label>
+                    <img src="../img/estrella.svg" alt="Icono Jugador 2" class="player-icon">
+                    <label class="points" id="puntosJugador2">+ 200 puntos</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pulsar empate">
+        <label style="font-size: 30px;">¡ESTO ES UN EMPATE!</label>
+    </div>
+    <footer>
+        <div class="row">
+            <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1</p>
+        </div>
+    </footer>
+    <script>
+        // Ejecutar addConfetti al cargar la página
+        const jsConfetti = new JSConfetti();
+        jsConfetti.addConfetti({
+            emojis: ['⭕', '✖️'],
+        });
+    </script>
+</body>
+
+</html>
