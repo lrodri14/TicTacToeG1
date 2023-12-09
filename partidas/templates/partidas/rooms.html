@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registro - Tic Tac Toe</title>
+    <link rel="shortcut icon" href="{% static 'images/LogoTicTacToe.svg' %}" type="image/x-icon">
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<script src="{% static 'js/index.js' %}"></script>
+
+<body>
+    <div>
+        <div id="form-container-Grey">
+            <div class="grey-container">
+                <div>
+                    <label id="organizar-privada" for="organizar-privada" style="color: #122A36; margin-left: 20px;">Jugadores 1/2</label>
+                    <span id="username" class="hidden">{{ user.username }}</span>
+                </div>
+                <hr class="hr2">
+                <div class="button-wrapper-p">
+                    <div class="content-wrapper-p">
+
+                        <img src="{% static 'images/x.svg' %}" alt="Descripción de la imagen 1" width="20px"
+                            style="margin-top: 5px; margin-right: 5px;">
+                        <div class="person">
+                            <label id="jugador_x" for="">
+                                {% if partida.jugador_x %}
+                                {{ partida.jugador_x.username }}
+                                {% else %}
+                                Esperando Jugador...
+                                {% endif %}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-wrapper-p">
+                    <div class="content-wrapper-p">
+                        <img src="{% static 'images/o.svg' %}" alt="Descripción de la imagen 1" width="20px"
+                            style="margin-top: 5px; margin-right: 5px;">
+                        <div class="person">
+                            <label id="jugador_0" for="">
+                                {% if partida.jugador_0 %}
+                                {{ partida.jugador_0.username }}
+                                {% else %}
+                                Esperando Jugador...
+                                {% endif %}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modifica tu actual sección de botones -->
+        <div class="row" id="button-back-container">
+            <a href="{% url 'menu:menu' %}">
+                <button class="back-button">
+                    <img src="{% static 'images/atras.svg' %}" alt="Salir" width="35" height="35">
+                </button>
+            </a>
+        </div>
+        <div class="row" id="button-logo-form-room">
+            <button class="logo-button">
+                <img src="{% static 'images/LogoTicTacToe.svg' %}" alt="logo_TicTacToe" width="100%">
+            </button>
+        </div>
+        <div class="row" id="button-code-form">
+            <div class="grey-container-logo">
+                <label>Código de sala: <span id="pk" class="hidden">{{ partida.pk }}</span></label>
+                <label id="codigo" style="font-weight: bold; font-size: 30px;">{{ partida.codigo_partida }}</label>
+            </div>
+        </div>
+        <div class="row" id="button-code-form">
+            <button class="enlace-button"> <img src="{% static 'images/enlace.svg' %}" alt="enlace" width="20px"
+                    style="margin-right: 3px;">Compartir Invitación</button>
+        </div>
+        <div class="row" id="button-code-form">
+            <button class="play-button">Jugar</button>
+         </div>
+    </div>
+    <div class="row" id="container-info">
+        <div class="grey-container-chat">
+            <div class="chat-cont">
+                <div class="msg">
+                    <p>Hola</p>
+                </div>
+                <!-- Agrega más mensajes según sea necesario -->
+            </div>
+            <hr class="divisor">
+            <div class="footer-chat">
+                <input type="text" id="mensaje" placeholder="Escribe tu mensaje">
+                <button id="enviar">
+                    <img src="{% static 'images/enviar.svg' %}" alt="Corona" width="20px" style="border: none; ">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <footer>
+        <div class="row">
+            <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let socket;
+
+        const codigo = document.querySelector('#codigo')
+        const usuario = document.querySelector('#username')
+        const jugador_x =  document.querySelector('#jugador_x')
+        const jugador_0 =  document.querySelector('#jugador_0')
+        const pk = document.querySelector('#pk')
+        const enviar = document.querySelector('#enviar')
+        const mensaje = document.querySelector('#mensaje')
+        const chat_cont = document.querySelector('.chat-cont')
+        const play = document.querySelector('.play-button')
+        const contadores = document.querySelector('#organizar-privada')
+
+        document.addEventListener('DOMContentLoaded', () => {
+            socket = new WebSocket('ws://127.0.0.1:8000/ws/partida/' + pk.textContent)
+
+            socket.onopen = function () {
+                socket.send(JSON.stringify({tipo: 'unirse', codigo: codigo.textContent, usuario: usuario.textContent}))
+            };
+
+            socket.onmessage = function (event) {
+                const data = JSON.parse(event.data);
+
+                switch(data.tipo){
+                    case 'usuario_unido':
+                        jugador_x.textContent = data.jugador_x ? data.jugador_x : 'Esperando Jugador...'
+                        jugador_0.textContent = data.jugador_0 ? data.jugador_0 : 'Esperando Jugador...'
+                        if (data.jugador_x && data.jugador_0){
+                            contadores.textContent = 'Jugadores 2/2'
+                        }
+                        break
+                    case 'mensaje':
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'msg';
+                        const msgTexto = document.createElement('p');
+                        msgTexto.textContent = data.mensaje;
+                        msgDiv.appendChild(msgTexto);
+                        chat_cont.appendChild(msgDiv);
+                        break
+                    case 'usuario_abandono':
+                        jugador_x.textContent = data.jugador_x ? data.jugador_x : 'Esperando Jugador...'
+                        jugador_0.textContent = data.jugador_0 ? data.jugador_0 : 'Esperando Jugador...'
+                        break
+                    default:
+                        window.location.pathname = '/partidas/jugar/' + pk.textContent
+                        break
+                }
+            };
+
+            socket.onclose = function (event) {
+                console.log('WebSocket connection closed:', event);
+            };
+
+            //  window.addEventListener('beforeunload', () => {
+            //     socket.send(JSON.stringify({ tipo: 'abandonar', codigo: codigo.textContent, usuario: usuario.textContent }));
+            // });
+        });
+
+        enviar.addEventListener('click', () => {
+            socket.send(JSON.stringify({tipo: 'mensaje', codigo: codigo.textContent, mensaje: mensaje.value, 'usuario': usuario.textContent}))
+            mensaje.value = ''
+        })
+
+        play.addEventListener('click', () => {
+            socket.send(JSON.stringify({tipo: 'iniciar'}))
+        })
+    </script>
+
+</body>
+
+</html>

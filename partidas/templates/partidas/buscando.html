@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tic Tac Toe</title>
+    <link rel="shortcut icon" href="{% static 'images/LogoTicTacToe.svg' %}" type="image/x-icon">
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <!-- div body -->
+    <span id="pk" class="hidden">{{ partida.pk }}</span>
+    <span id="unido" class="hidden">{{ unido }}</span>
+    <div>
+        <main>
+            <!--Imagen Logo-->
+            <div class="row">
+                <img src="{% static 'images/LogoTicTacToe.svg' %}" alt="logo_TicTacToe" class="tictactoe-logo">
+            </div>
+            <!-- Barra de Progreso-->
+            <div class="row progress-bar">
+                <div class="barra-llenado"></div>
+                <h4 class="porcentaje-llenado">{{ mensaje }}</h4>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1</p>
+            </div>
+        </footer>
+    </div>
+</body>
+<script>
+    const pk = document.querySelector('#pk')
+    const unido = document.querySelector('#unido')
+    let socket;
+    console.log(unido, typeof unido)
+
+    document.addEventListener('DOMContentLoaded', function () {
+        socket = new WebSocket('ws://127.0.0.1:8000/ws/partida/buscando/' + pk.textContent);
+
+        socket.onopen = function () {
+            if (unido.textContent === 'True'){
+                socket.send(JSON.stringify({unido: true}))
+            }
+        };
+
+        socket.onmessage = function (event) {
+            const data = JSON.parse(event.data);
+            const redireccion = data.redirigir
+            if (redireccion === true){
+                window.location.pathname = '/partidas/jugar/' + pk.textContent
+            }
+        };
+
+        socket.onclose = function (event) {
+            console.log('WebSocket connection closed:', event);
+        };
+    });
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script type='module' src="{% static 'js/buscando.js' %}"></script>
+
+</html>

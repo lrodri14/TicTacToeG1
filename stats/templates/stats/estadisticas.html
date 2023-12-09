@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Estadísticas del Juego</title>
+    <link rel="shortcut icon" href="img/LogoTicTacToe.svg" type="image/x-icon">
+    <meta name="author" content="Grupo#1">
+    <meta name="keywords" content="html,Tic Tac Toe">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<style>
+    /* Nuevas clases para evitar conflictos con estilos existentes */
+    .tab-container {
+        width: 55%;
+        margin: auto;
+        font-size: 0;
+        border-radius: 30px;
+        overflow: hidden;
+        background: #fff;
+        margin-top: 2%;
+        position: absolute;
+        left: 23%;
+        font-family: 'Fredoka', sans-serif;
+    }
+
+    .overflow-hidden {
+        overflow: hidden;
+    }
+
+
+    .tab-header {
+        background-color: white;
+        color: #FF9500;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+        height: auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .tab-input {
+        display: none;
+    }
+
+    .tab-input:checked+.tab-label {
+        background: #eee;
+    }
+
+    .tab-input:checked~.tab-line {
+        left: 50%;
+    }
+
+    .tab-input#tab1:checked~.tab-content-container #c1,
+    .tab-input#tab2:checked~.tab-content-container #c2 {
+        opacity: 1;
+    }
+
+    .tab-label {
+        display: inline-block;
+        font-size: 16px;
+        height: 36px;
+        line-height: 36px;
+        width: 50%;
+        text-align: center;
+        cursor: pointer;
+        color: #555;
+        position: relative;
+        transition: 0.25s background ease;
+    }
+
+    .tab-label::after {
+        content: "";
+        height: 2px;
+        width: 100%;
+        position: absolute;
+        display: block;
+        background: #DC4C22;
+        bottom: 0;
+        opacity: 0;
+        left: 0;
+        transition: 0.25s ease;
+    }
+
+    .tab-label:hover::after {
+        opacity: 1;
+    }
+
+    .tab-line {
+        position: absolute;
+        height: 2px;
+        width: 50%;
+        top: 34px;
+        left: 0;
+        transition: 0.25s ease;
+    }
+
+    /*Contener padre para las pestañas e información mostrada*/
+    .tab-content-container {
+        position: relative;
+        font-size: 16px;
+        width: auto;
+        height: 400px;
+        overflow-x: hidden;
+    }
+
+    .tab-content {
+        position: absolute;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        top: 0;
+        opacity: 0;
+        transition: 0.25s ease;
+        color: #333;
+
+    }
+
+    /* Ajustes generales */
+    .tab-content#c1 {
+        background-color: white;
+    }
+
+    .tab-content#c2 {
+        background-color: white;
+        height: 350px;
+        margin-left: 28%;
+        overflow-y: hidden;
+
+    }
+
+    h3 {
+        font-weight: 200;
+        margin: 10px 0;
+    }
+
+    p {
+        margin: 10px 0;
+    }
+
+    p,
+    i {
+        font-size: 13px;
+    }
+
+    .stats-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .stats-table th {
+        background-color: white;
+        color: #0081C6;
+        position: sticky;
+        top: 0;
+        padding: 10px;
+    }
+
+    .stats-table td {
+        padding: 10px;
+        text-align: center;
+        border: none;
+        color: #FF9500;
+        font-weight: bold;
+    }
+
+    .stats-table td:first-child {
+        color: #DC4C22;
+        font-weight: bold;
+    }
+
+    .medal-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .medal-cell img {
+        height: 25px;
+        width: 25px;
+        margin-right: 5px;
+    }
+
+    /* Ajustar el estilo del canvas del gráfico de pastel */
+    #personalChart {
+        position: absolute;
+        height: 400px;
+
+    }
+</style>
+
+    <body>
+        <div class="tab-container">
+            <div class="tab-header">ESTADÍSTICAS</div>
+            <input type="radio" id="tab1" class="tab-input" name="tab" checked>
+            <label for="tab1" class="tab-label" style="background-color: #FF9500; color: white; font-size: 18px; font-weight: bold; height: 40px"><i class="fa fa-code"></i> GENERALES</label>
+            <input type="radio" id="tab2" class="tab-input" name="tab">
+            <label for="tab2" class="tab-label" style="background-color: #0081C6; color: white; font-size: 18px; font-weight: bold;  height: 40px"><i class="fa fa-history"></i> PERSONALES</label>
+
+            <div class="tab-line"></div>
+
+            <div class="tab-content-container" id="tab-content-container-c1">
+                <div class="tab-content" id="c1">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Usuario</th>
+                                <th>Puntos Obtenidos</th>
+                                <th>Partidas (Ganadas - Perdidas - Empatadas)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            {% for record in records %}
+                                <tr>
+                                    <td class="medal-cell">
+                                        {% if forloop.counter <= 3 %}
+                                            <img src="{% static 'images/corona.svg' %}" alt="corona">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ record.jugador.username }}</td>
+                                    <td>{{ record.puntos }} </td>
+                                    <td>{{ record.ganes }} - {{ record.perdidas }} - {{ record.empates }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-content" id="c2" value-ganes="{{ usuario.ganes }}"
+                                                 value-perdidas="{{ usuario.perdidas }}"
+                                                 value-empates="{{ usuario.empates }}">
+                    <canvas id="personalChart" width="200px"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="button-back-container">
+            <a href="{% url 'menu:menu' %}">
+                <button class="back-button">
+                    <img src="{% static 'images/atras.svg' %}" alt="Regresar" width="100%">
+                </button>
+            </a>
+        </div>
+        <div class="row" id="button-logo-form">
+            <a href="{% url 'home:home' %}">
+                <button class="logo-button">
+                    <img src="{% static 'images/LogoTicTacToe.svg' %}" alt="logo_TicTacToe" width="80%">
+                </button>
+            </a>
+        </div>
+        <div class="row" id="button-logo-form">
+            <div class="blue-container-logo">
+                <div>
+                    <center>
+                        <label>{{ username }}</label>
+                        <hr class="hr1">
+                        <img src="{% static 'images/copa.svg' %}" alt="Copa" width="10%">
+                        <label>{{ usuario.puntos }}</label>
+                        <img src="{% static 'images/corona.svg' %}" alt="Corona" width="10%" style="margin-left: 50px;">
+                        <label>{{ usuario.ganes }}</label>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="row">
+                <p style="display: flex; align-items: center;">Copyright 2023 | Programación Sistemas Abiertos I - Grupo N°1</p>
+            </div>
+        </footer>
+        <script src="{% static 'js/estadisticas.js' %}"></script>
+    </body>
+</html>
