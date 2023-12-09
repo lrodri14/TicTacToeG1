@@ -1,0 +1,963 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+main {
+    min-height: 80vh;
+}
+
+html {
+    height: 100%;
+    background: #ffffff;
+    /* Color de fondo blanco para el elemento html */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    /* Establece la altura mínima del cuerpo al 100% del viewport */
+    display: flex;
+    flex-direction: column;
+    background: url('../images/fondoxo_1.svg') no-repeat center center fixed;
+    /* Cambia 'tu_imagen.jpg' con la ruta de tu imagen */
+    background-size: cover;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    position: fixed;
+    /* O utiliza 'absolute' según tus necesidades */
+    bottom: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: #122A36;
+    color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    /* Quítale la subrayado del enlace */
+    color: inherit;
+    /* Hereda el color del texto del elemento padre */
+    cursor: pointer;
+    /* Muestra un cursor de puntero al pasar el mouse */
+}
+
+/* Barra de Progreso ======================*/
+.tictactoe-logo {
+    max-width: 500px;
+    width: 90vw;
+    margin-top: 5px;
+    height: auto;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    color: #122A36;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+}
+
+.progress-bar>.barra-llenado {
+    width: 70vw;
+    max-width: 400px;
+    height: 3em;
+    border-radius: 50px;
+    border: 2px solid #122A36;
+    background-color: #aedff200;
+    display: flex;
+    overflow: hidden;
+}
+
+.progress-bar>.barra-llenado::before {
+    content: "";
+    background-color: #0081C6;
+    width: calc(var(--width, 0) * 1%);
+    border-radius: 50px;
+}
+
+#logo-container {
+    margin-top: 80px;
+    /* Ajusta el valor según sea necesario */
+
+}
+
+#button-home-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    /* Ajusta el valor según sea necesario */
+    margin-top: 20px;
+}
+
+.red-button,
+.blue-button {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    width: 160px;
+    height: 50px;
+}
+
+
+.blue-button {
+    background-color: #0081C6;
+    color: white;
+    border: none;
+    margin-right: 20px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Fredoka', sans-serif;
+    transition: all 0.25s ease;
+    /* Agregado para aplicar la transición a todos los cambios */
+}
+
+.blue-button::after {
+    content: "X";
+    position: absolute;
+    left: -20%;
+    transition: 0.25s ease;
+}
+
+.blue-button span {
+    padding-left: 0;
+    /* O el valor que desees para el estado normal */
+    transition: 0.25s ease;
+}
+
+.blue-button:hover {
+    width: 170px;
+    /* Aumenta el ancho en el estado de hover */
+    cursor: pointer;
+}
+
+.blue-button:hover span {
+    padding-right: 30px;
+    /* Ajusta el valor según sea necesario para el desplazamiento */
+}
+
+.blue-button:hover::after {
+    left: 20px;
+}
+
+
+.red-button {
+    background-color: #DC4C22;
+    color: white;
+    border: none;
+    margin-right: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    /* Agregado para aplicar la transición a todos los cambios */
+
+}
+
+.red-button::after {
+    content: "O";
+    position: absolute;
+    left: -20%;
+    transition: 0.25s ease;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.red-button span {
+    padding-left: 0;
+    /* O el valor que desees para el estado normal */
+    transition: 0.25s ease;
+}
+
+.red-button:hover {
+    width: 170px;
+    /* Aumenta el ancho en el estado de hover */
+    cursor: pointer;
+
+}
+
+.red-button:hover span {
+    padding-right: 30px;
+    /* Ajusta el valor según sea necesario para el desplazamiento */
+}
+
+.red-button:hover::after {
+    left: 20px;
+}
+
+#container-info {
+    justify-content: left;
+    margin-top: 40px;
+    /* Ajusta la distancia desde el elemento superior según sea necesario */
+
+}
+
+.green-button {
+    width: 50px;
+    height: 50px;
+    background-color: #9DDF2C;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 50px;
+    /* Ajusta la distancia desde el elemento superior según sea necesario */
+    margin-left: 40px;
+}
+
+.salir-button {
+    width: 50px;
+    height: 50px;
+    background-color: #DC4C22;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#button-back-container {
+    justify-content: left;
+    width: 60px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#button-salir-container {
+    justify-content: left;
+    width: 60px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.back-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* BOTÓN CON IMAGEN PARA DIGIRSE A HOME */
+#button-logo-form {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+#button-logo-form-room {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#button-code-form {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.logo-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.blue-container-logo {
+    display: flex;
+    position: absolute;
+    top: 210px;
+    /* Ajusta la posición desde la parte superior según tus necesidades */
+    right: 15px;
+    /* Ajusta la posición desde la derecha según tus necesidades */
+    justify-content: center;
+    /* Centra los elementos horizontalmente */
+    align-items: center;
+    /* Centra los elementos verticalmente */
+    background-color: #0081c6be;
+    /* Color azul */
+    padding: 20px;
+    border-radius: 30px;
+    width: 240px;
+    /* O ajusta a un valor específico según tus necesidades */
+    color: #ffffff;
+}
+
+.grey-container-logo {
+    position: absolute;
+    top: 150px;
+    right: 15px;
+    background-color: #EFEFEF;
+    padding: 20px;
+    border-radius: 30px;
+    width: 220px;
+    color: #122A36;
+    align-items: center;
+    display: flex;
+    /* Agrega flexbox */
+    flex-direction: column;
+    /* Establece la dirección de la columna para apilar los elementos verticalmente */
+    justify-content: center;
+    /* Centra verticalmente los elementos dentro del contenedor */
+    border: 2px solid #0081C6;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    margin-right: 20px;
+}
+
+
+.grey-container-chat {
+    position: absolute;
+    top: 150px;
+    left: 15px;
+    background-color: #EFEFEF;
+    padding: 20px;
+    border-radius: 30px;
+    width: 220px;
+    height: 300px;
+    color: #122A36;
+    align-items: center;
+    display: flex;
+    /* Agrega flexbox */
+    flex-direction: column;
+    /* Establece la dirección de la columna para apilar los elementos verticalmente */
+    justify-content: center;
+    /* Centra verticalmente los elementos dentro del contenedor */
+    border: 2px solid #0081C6;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    margin-left: 20px;
+}
+
+
+
+
+
+/*FORMILARIO PARA REGISTRARSE*/
+#form-container {
+    width: 45%;
+    height: auto;
+    background-color: #FF9500;
+    border-radius: 30px;
+    display: flex;
+    align-items: stretch;
+    /* Ajusta la propiedad 'align-items' a 'stretch' */
+    justify-content: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
+    /* Agregamos un margen inferior para separar del contenedor de registro */
+
+}
+
+#form-container-Grey {
+    width: 45%;
+    height: auto;
+    border-radius: 30px;
+    display: flex;
+    align-items: stretch;
+    /* Ajusta la propiedad 'align-items' a 'stretch' */
+    justify-content: center;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
+    /* Agregamos un margen inferior para separar del contenedor de registro */
+
+}
+
+.header-form {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background-color: #0081C6;
+    display: flex;
+    align-items: center;
+    /* Centra el contenido verticalmente dentro de header-form */
+    justify-content: center;
+    /* Centra el contenido horizontalmente dentro de header-form */
+    font-family: 'Fredoka', sans-serif;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+
+}
+
+.campos-form {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.campos-form .campo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.campos-form .campo label {
+    width: 200px;
+    /* Ajusta el ancho según tus necesidades */
+    padding-right: 20px;
+    text-align: left;
+    font-family: 'Fredoka', sans-serif;
+    /* Fuente 'Fredoka One' */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.campos-form .campo input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 30px;
+    width: 50%;
+    border: none;
+    color: #122A36;
+    /* Color del texto */
+    font-family: 'Fredoka', sans-serif;
+    /* Fuente */
+    font-size: 16px;
+    /* Tamaño de fuente */
+    text-align: center;
+    /* Alineación del texto */
+}
+
+
+
+.red-button-registro {
+    background-color: #DC4C22;
+    color: white;
+    border: none;
+    margin-left: 22%;
+    font-family: 'Fredoka', sans-serif;
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+.campos-form .campo img {
+    margin-right: 10px;
+    /* Espaciado entre la etiqueta y el icono */
+    width: 2%;
+}
+
+.registro-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 32%;
+    position: absolute;
+    top: 5%;
+
+}
+
+.registro-container label {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    color: #0081C6;
+    margin-right: 3.5%;
+    margin-left: 37%;
+}
+
+.registro-container button {
+    /* Estilos del botón blue-button */
+    background-color: #0081C6;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 160px;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Fredoka', sans-serif;
+    transition: all 0.25s ease;
+}
+
+
+.campos-form .campo .password-container {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.campos-form .campo .input-container {
+    flex: 1;
+    width: 90%;
+}
+
+.campos-form .campo input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    color: #122A36;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    /* Elimina el borde de enfoque */
+
+}
+
+.campos-form .campo .icon-container {
+    width: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.campos-form .campo .show-password {
+    width: 100%;
+    cursor: pointer;
+}
+
+.campos-form .campo .show-password2 {
+    width: 100%;
+    cursor: pointer;
+}
+
+
+.blue-container {
+    background-color: #0081C6;
+    /* Color azul */
+    padding: 20px;
+    border-radius: 30px;
+    width: 80%;
+    /* Ajusta este valor para cambiar el ancho */
+    margin: auto;
+    /* Centra el contenedor horizontalmente */
+    display: flex;
+    height: auto;
+    align-items: stretch;
+    /* Ajusta la propiedad 'align-items' a 'stretch' */
+    justify-content: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
+    flex-direction: column;
+    /* Cambiado a dirección vertical */
+    align-items: center;
+    /* Centra los elementos horizontalmente */
+    color: #ffffff;
+
+
+}
+
+.grey-container {
+    background-color: #EFEFEF;
+    /* Color azul */
+    padding: 20px;
+    border-radius: 30px;
+    width: 80%;
+    /* Ajusta este valor para cambiar el ancho */
+    margin: auto;
+    /* Centra el contenedor horizontalmente */
+    display: flex;
+    height: auto;
+    align-items: stretch;
+    /* Ajusta la propiedad 'align-items' a 'stretch' */
+    justify-content: center;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
+    flex-direction: column;
+    /* Cambiado a dirección vertical */
+    color: #000000;
+    border: 2px solid #0081C6;
+
+}
+
+.orange-button {
+    position: relative;
+    overflow: hidden;
+    background-color: #FF9500;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 1px;
+    width: 250px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.orange-button:before,
+.orange-button:after {
+    content: '';
+    position: absolute;
+    background: #FF9500;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200%;
+    border-radius: 40%;
+    transform: translateY(50%);
+    transition: transform 0.4s ease-in, border-radius 0.5s ease 0.08s;
+}
+
+.orange-button:after {
+    background: #FFD100;
+    transition-delay: 0.02s;
+}
+
+.orange-button:hover:before,
+.orange-button:hover:after {
+    transform: translateY(0);
+    border-radius: 5%;
+}
+
+
+.orange-button span {
+    position: relative;
+    z-index: 1;
+}
+
+.enlace-button {
+    position: absolute;
+    display: flex;
+    top: 280px;
+    right: 55px;
+    background-color: #0081C6;
+    padding: 15px;
+    border-radius: 30px;
+    color: #ffffff;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    margin-right: 20px;
+    border: none;
+    font-weight: bold;
+}
+
+.play-button {
+    position: absolute;
+    width: 200px;
+    top: 450px;
+    right: 50px;
+    background-color: #FFD100;
+    padding: 15px;
+    border-radius: 30px;
+    color: #ffffff;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    margin-right: 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+
+
+label {
+    font-size: 20px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+}
+
+hr {
+    border: 1px solid white;
+    width: 300px;
+    margin: 5px auto;
+}
+
+
+.hr1 {
+    border: 1px solid white;
+    width: auto;
+    margin: 5px auto;
+}
+
+.hr2 {
+    border: 1px solid #122A36;
+    width: 450px;
+    margin: 5px auto;
+}
+
+
+
+.button-wrapper .content-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+}
+
+.button-wrapper-p .content-wrapper-p {
+    display: flex;
+
+}
+
+.button-wrapper img {
+    width: 70px;
+    /* Ajusta el ancho de la imagen según sea necesario */
+    height: 70px;
+    /* Ajusta la altura de la imagen según sea necesario */
+    margin-right: 10px;
+    /* Espacio entre la imagen y el texto/botón */
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    /* Cambiado a dirección vertical */
+    margin-top: 10px;
+    color: #EFEFEF;
+    background-color: #0081C6;
+    padding: 3px;
+    margin-bottom: 5px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    width: 100%;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #0081c67f;
+    /* Ajustar la opacidad según tus preferencias */
+    padding-top: 90px;
+    border-radius: 10px;
+    /* Agregar borde redondeado */
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #FF9500;
+    display: flex;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    /* Agregar borde redondeado */
+    width: 30%;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    position: relative; /* Añadir posición relativa para el posicionamiento absoluto del botón */
+}
+
+.close {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 1px; /* Ajustar según tu diseño */
+    right: 10px; /* Ajustar según tu diseño */
+}
+
+.close:hover,
+.close:focus {
+    color: #DC4C22;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.boton-con {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+}
+
+#ingresarBtn {
+    background-color: #FFD100;
+    color: #ffffff;
+    margin-right: 10px;
+    border: none;
+    margin-top: 10px;
+    width: 100px;
+    border-radius: 20px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: bold;
+}
+
+#cancelarBtn {
+    background-color: #DC4C22;
+    color: #ffffff;
+    margin-right: 10px;
+    border: none;
+    margin-top: 10px;
+    width: 100px;
+    border-radius: 20px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: bold;
+}
+
+#codigoInput {
+    width: 70%;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    text-align: center; /* Centrar el texto en el campo de entrada */
+    height: 40px;
+    margin-top: 10px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chat-cont {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    overflow-y: auto; /* Agrega scroll vertical cuando sea necesario */
+}
+
+.msg {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding: 1px 1px 1px 10px; /* Ajusta el relleno según sea necesario */
+    margin-bottom: 5px;
+    width: 200px;
+    text-align: left;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+.divisor {
+    width: 100%;
+    margin: 10px 0;
+    border: 0;
+    border-top: 1px solid #0081C6;
+}
+.footer-chat button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-chat {
+    margin-top: auto; /* Empuja el pie hacia abajo */
+    display: flex;
+    align-items: center;
+}
+
+.footer-chat input {
+    flex: 1;
+    margin-right: 10px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    margin-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.grey-container-chat {
+    position: absolute;
+    top: 150px;
+    left: 15px;
+    background-color: #EFEFEF;
+    padding: 20px;
+    border-radius: 30px;
+    width: 220px;
+    height: 300px;
+    color: #122A36;
+    border: 2px solid #0081C6;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.grey-container-info {
+    background-color: #EFEFEF;
+    /* Color azul */
+    padding: 20px;
+    border-radius: 30px;
+    width: 150%;
+    /* Ajusta este valor para cambiar el ancho */
+    margin: auto;
+    /* Centra el contenedor horizontalmente */
+    height: 250px;
+    align-items: stretch;
+    /* Ajusta la propiedad 'align-items' a 'stretch' */
+    justify-content: center;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
+    flex-direction: column;
+    /* Cambiado a dirección vertical */
+    color: #000000;
+    border: 1px solid #464646;
+}
+.info{
+    height: 250px;
+    overflow-y: auto;
+    margin: 2px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+.contenedor-azul{
+	border-radius: 15px;
+	padding: 8px;
+	margin: 10px 10px;
+}
+
+
+/* Cards developers ======================*/
+.card1{
+    background-color: #0081C6;
+	text-align: center;
+	border-radius: 15px;
+	padding: 8px;
+	color: #f1f1f1;
+    margin: 5px;
+}
+.card2{
+    background-color: #DC4C22;
+	text-align: center;
+	border-radius: 15px;
+	padding: 8px;
+	color: #f1f1f1;
+    margin: 5px;
+}
+.card1:hover{
+	transition: 0.3s;
+	box-shadow: 0 8px 16px 0 #111;
+}
+.card2:hover{
+	transition: 0.3s;
+	box-shadow: 0 8px 16px 0 #111;
+}
+
+.hidden{
+    display: none;
+}
