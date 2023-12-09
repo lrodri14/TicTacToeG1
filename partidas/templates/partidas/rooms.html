@@ -123,7 +123,7 @@
         const contadores = document.querySelector('#organizar-privada')
 
         document.addEventListener('DOMContentLoaded', () => {
-            socket = new WebSocket('wss://www.tictactoe.katiosca.com/ws/partida/' + pk.textContent)
+            socket = new WebSocket('wss://www.tictactoe.sealena.com/ws/partida/' + pk.textContent)
 
             socket.onopen = function () {
                 socket.send(JSON.stringify({tipo: 'unirse', codigo: codigo.textContent, usuario: usuario.textContent}))
