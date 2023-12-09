@@ -7,7 +7,7 @@ const cells = document.querySelectorAll('.cell');
 document.addEventListener('DOMContentLoaded', function () {
     // Espera a que el contenido del DOM se cargue completamente
 
-    const socket = new WebSocket('ws://127.0.0.1:8000/ws/partidas/jugar/' + pk.textContent);
+    const socket = new WebSocket('wss://www.tictactoe.katiosca.com/ws/partidas/jugar/' + pk.textContent);
 
     socket.onopen = function (event) {
         console.log('WebSocket connection opened:', event);

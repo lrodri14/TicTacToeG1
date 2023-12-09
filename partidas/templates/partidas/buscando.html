@@ -44,7 +44,7 @@
     console.log(unido, typeof unido)
 
     document.addEventListener('DOMContentLoaded', function () {
-        socket = new WebSocket('ws://127.0.0.1:8000/ws/partida/buscando/' + pk.textContent);
+        socket = new WebSocket('wss://www.tictactoe.katiosca.com/ws/partida/buscando/' + pk.textContent);
 
         socket.onopen = function () {
             if (unido.textContent === 'True'){
